@@ -876,7 +876,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"jhmall","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"star数码商城","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7460,7 +7460,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"jhmall","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"star数码商城","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7481,14 +7481,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"jhmall","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"star数码商城","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"jhmall","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"star数码商城","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7574,7 +7574,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"jhmall","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"star数码商城","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8155,6 +8155,330 @@ function normalizeComponent (
 
 /***/ }),
 /* 11 */
+/*!***************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/app.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.showToast = exports.showError = exports.showSuccess = exports.getPlatform = exports.getTabBarLink = exports.navTo = void 0;var util = _interopRequireWildcard(__webpack_require__(/*! ./util.js */ 12));function _getRequireWildcardCache() {if (typeof WeakMap !== "function") return null;var cache = new WeakMap();_getRequireWildcardCache = function _getRequireWildcardCache() {return cache;};return cache;}function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;}if (obj === null || typeof obj !== "object" && typeof obj !== "function") {return { default: obj };}var cache = _getRequireWildcardCache();if (cache && cache.has(obj)) {return cache.get(obj);}var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}newObj.default = obj;if (cache) {cache.set(obj, newObj);}return newObj;}
+
+
+/**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               * 跳转到指定页面
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               * 支持tabbar的跳转
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               * @param {string} url
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               * @param {object} query    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+var navTo = function navTo(url) {var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  if (!url || url.length === 0) {
+    return false;
+  }
+  //tabbar页面，使用switchTab
+  if (util.inArray(url, getTabBarLink())) {
+    uni.switchTab({
+      url: "/".concat(url) });
+
+    return true;
+  }
+  //生成query的参数
+  var queryStr = !util.isEmpty(query) ? '?' + util.urlEncode(query) : '';
+  //普通页面跳转
+  uni.navigateTo({
+    url: "/".concat(url).concat(queryStr) });
+
+  return true;
+};
+
+/**
+    * 获取tabbar跳转路径，页面路径列表
+    */exports.navTo = navTo;
+var getTabBarLink = function getTabBarLink() {
+  var tabBarLinks = [
+  'pages/index/index',
+  'pages/category/index',
+  'pages/cart/index',
+  'pages/user/index'];
+
+  return tabBarLinks;
+};
+
+/**
+    * 获取当前运行的终端(App H5 小程序)
+    */exports.getTabBarLink = getTabBarLink;
+var getPlatform = function getPlatform() {
+
+
+
+
+
+
+
+
+
+
+  var platform = 'MP-WEIXIN';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  return platform;
+};
+/**
+    * 显示成功的提示框
+    */exports.getPlatform = getPlatform;
+var showSuccess = function showSuccess(msg, callback) {
+  uni.showToast({
+    title: msg,
+    icon: 'success',
+    mask: true,
+    duration: 1500,
+    success: function success() {
+      //有callback再去执行
+      callback && callback();
+    } });
+
+};
+
+
+/**
+    * 显示失败的提示框
+    */exports.showSuccess = showSuccess;
+var showError = function showError(msg, callback) {
+  uni.showModal({
+    title: '温馨提示',
+    content: msg,
+    showCancel: false,
+    success: function success() {
+      //有callback再去执行
+      callback && callback();
+    } });
+
+};
+
+
+/**
+    * 显示纯文字提示框
+    */exports.showError = showError;
+var showToast = function showToast(msg, callback) {
+  uni.showToast({
+    title: msg,
+    icon: 'none',
+    duration: 1500,
+    success: function success() {
+      //有callback再去执行
+      callback && callback();
+    } });
+
+};exports.showToast = showToast;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+/* 12 */
+/*!****************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/util.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.throttle = throttle;exports.debounce = debounce;exports.arrayIntersect = exports.cloneObj = exports.isEmpty = exports.isArray = exports.isObject = exports.isEmptyObject = exports.dateFormat = exports.inArray = exports.objForEach = exports.urlEncode = exports.formatDate = void 0; /**
+                                                                                                                                                                                                                                                                                                                                                                            * 工具类
+                                                                                                                                                                                                                                                                                                                                                                            */
+
+
+/**
+                                                                                                                                                                                                                                                                                                                                                                                * 格式化日期格式 (用于兼容ios Date对象)
+                                                                                                                                                                                                                                                                                                                                                                                */
+var formatDate = function formatDate(time) {
+  // 将xxxx-xx-xx的时间格式，转换为 xxxx/xx/xx的格式 
+  return time.replace(/\-/g, "/");
+};
+
+/**
+    * 对象转URL
+    * @param {object} obj
+    */exports.formatDate = formatDate;
+var urlEncode = function urlEncode() {var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var result = [];var _loop = function _loop(
+  key) {
+    var item = obj[key];
+    if (!item) {
+      return "continue";
+    }
+    if (isArray(item)) {
+      item.forEach(function (val) {
+        result.push(key + '=' + val);
+      });
+    } else {
+      result.push(key + '=' + item);
+    }};for (var key in obj) {var _ret = _loop(key);if (_ret === "continue") continue;
+  }
+  return result.join('&');
+};
+
+/**
+    * 遍历对象
+    */exports.urlEncode = urlEncode;
+var objForEach = function objForEach(obj, callback) {
+  Object.keys(obj).forEach(function (key) {
+    callback(obj[key], key);
+  });
+};
+
+/**
+    * 是否在数组内
+    */exports.objForEach = objForEach;
+var inArray = function inArray(search, array) {
+  for (var i in array) {
+    if (array[i] == search) return true;
+  }
+  return false;
+};
+
+/**
+    * 对Date的扩展，将 Date 转化为指定格式的String
+    * 月(Y)、月(m)、日(d)、小时(H)、分(M)、秒(S) 可以用 1-2 个占位符，
+    * 例子：
+    * dateFormat('YYYY-mm-dd HH:MM:SS', new Date()) ==> 2020-01-01 08:00:00
+    */exports.inArray = inArray;
+var dateFormat = function dateFormat(fmt, date) {
+  var opt = {
+    "Y+": date.getFullYear().toString(), // 年
+    "m+": (date.getMonth() + 1).toString(), // 月
+    "d+": date.getDate().toString(), // 日
+    "H+": date.getHours().toString(), // 时
+    "M+": date.getMinutes().toString(), // 分
+    "S+": date.getSeconds().toString() // 秒
+    // 有其他格式化字符需求可以继续添加，必须转化成字符串
+  };
+  var ret;
+  for (var k in opt) {
+    ret = new RegExp("(" + k + ")").exec(fmt);
+    if (ret) {
+      fmt = fmt.replace(ret[1], ret[1].length == 1 ? opt[k] : opt[k].padStart(ret[1].length, "0"));
+    };
+  };
+  return fmt;
+};
+
+/**
+    * 判断是否为空对象
+    * @param {*} object 源对象
+    */exports.dateFormat = dateFormat;
+var isEmptyObject = function isEmptyObject(object) {
+  return Object.keys(object).length === 0;
+};
+
+/**
+    * 判断是否为对象
+    * @param {*} object
+    */exports.isEmptyObject = isEmptyObject;
+var isObject = function isObject(object) {
+  return Object.prototype.toString.call(object) === '[object Object]';
+};
+
+/**
+    * 判断是否为数组
+    * @param {*} array
+    */exports.isObject = isObject;
+var isArray = function isArray(array) {
+  return Object.prototype.toString.call(array) === '[object Array]';
+};
+
+/**
+    * 判断是否为空
+    * @param {*} object 源对象
+    */exports.isArray = isArray;
+var isEmpty = function isEmpty(value) {
+  if (isArray(value)) {
+    return value.length === 0;
+  }
+  if (isObject(value)) {
+    return isEmptyObject(value);
+  }
+  return !value;
+};
+
+/**
+    * 对象深拷贝
+    * @param {*} obj 源对象
+    */exports.isEmpty = isEmpty;
+var cloneObj = function cloneObj(obj) {
+  var newObj = obj.constructor === Array ? [] : {};
+  if (typeof obj !== 'object') {
+    return;
+  }
+  for (var i in obj) {
+    newObj[i] = typeof obj[i] === 'object' ? cloneObj(obj[i]) : obj[i];
+  }
+  return newObj;
+};
+
+// 节流函数
+// 思路： 第一次先设定一个变量true，
+// 第二次执行这个函数时，会判断变量是否true，
+// 是则返回。当第一次的定时器执行完函数最后会设定变量为flase。
+// 那么下次判断变量时则为flase，函数会依次运行。
+exports.cloneObj = cloneObj;function throttle(fn) {var delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 100;
+  // 首先设定一个变量，在没有执行我们的定时器时为null
+  var timer = null;
+  return function () {var _arguments = arguments,_this = this;
+    // 当我们发现这个定时器存在时，则表示定时器已经在运行中，需要返回
+    if (timer) return;
+    timer = setTimeout(function () {
+      fn.apply(_this, _arguments);
+      timer = null;
+    }, delay);
+  };
+}
+
+// 防抖函数
+// 首次运行时把定时器赋值给一个变量， 第二次执行时，
+// 如果间隔没超过定时器设定的时间则会清除掉定时器，
+// 重新设定定时器， 依次反复， 当我们停止下来时，
+// 没有执行清除定时器， 超过一定时间后触发回调函数。
+// 参考文档：https://segmentfault.com/q/1010000021145192
+function debounce(fn, delay) {
+  var timer;
+  return function () {
+    var that = this;
+    var _args = arguments; // 存一下传入的参数
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(function () {
+      fn.apply(that, _args);
+    }, delay);
+  };
+}
+
+
+/**
+   * 数组交集
+   * @param {Array} 数组1
+   * @param {Array} 数组2
+   * @return {Array}
+   */
+var arrayIntersect = function arrayIntersect(array1, array2) {
+  return array1.filter(function (val) {return array2.indexOf(val) > -1;});
+};exports.arrayIntersect = arrayIntersect;
+
+/***/ }),
+/* 13 */
 /*!********************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/index.js ***!
   \********************************************************************/
@@ -8163,15 +8487,11 @@ function normalizeComponent (
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-var _mixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mixin.js */ 12));
+var _mixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mixin.js */ 14));
 
 
 
-var _request = _interopRequireDefault(__webpack_require__(/*! ./libs/request */ 13));
-
-
-
-
+var _request = _interopRequireDefault(__webpack_require__(/*! ./libs/request */ 15));
 
 
 
@@ -8188,56 +8508,60 @@ var _request = _interopRequireDefault(__webpack_require__(/*! ./libs/request */ 
 
 
 
-var _queryParams = _interopRequireDefault(__webpack_require__(/*! ./libs/function/queryParams.js */ 17));
-
-var _route = _interopRequireDefault(__webpack_require__(/*! ./libs/function/route.js */ 18));
-
-var _timeFormat = _interopRequireDefault(__webpack_require__(/*! ./libs/function/timeFormat.js */ 22));
-
-var _timeFrom = _interopRequireDefault(__webpack_require__(/*! ./libs/function/timeFrom.js */ 23));
-
-var _colorGradient = _interopRequireDefault(__webpack_require__(/*! ./libs/function/colorGradient.js */ 24));
-
-var _guid = _interopRequireDefault(__webpack_require__(/*! ./libs/function/guid.js */ 25));
-
-var _color = _interopRequireDefault(__webpack_require__(/*! ./libs/function/color.js */ 26));
-
-var _type2icon = _interopRequireDefault(__webpack_require__(/*! ./libs/function/type2icon.js */ 27));
-
-var _randomArray = _interopRequireDefault(__webpack_require__(/*! ./libs/function/randomArray.js */ 28));
-
-var _deepClone = _interopRequireDefault(__webpack_require__(/*! ./libs/function/deepClone.js */ 15));
-
-var _deepMerge = _interopRequireDefault(__webpack_require__(/*! ./libs/function/deepMerge.js */ 14));
-
-var _addUnit = _interopRequireDefault(__webpack_require__(/*! ./libs/function/addUnit.js */ 29));
-
-
-var _test = _interopRequireDefault(__webpack_require__(/*! ./libs/function/test.js */ 16));
-
-var _random = _interopRequireDefault(__webpack_require__(/*! ./libs/function/random.js */ 30));
-
-var _trim = _interopRequireDefault(__webpack_require__(/*! ./libs/function/trim.js */ 31));
-
-var _toast = _interopRequireDefault(__webpack_require__(/*! ./libs/function/toast.js */ 32));
-
-var _getParent = _interopRequireDefault(__webpack_require__(/*! ./libs/function/getParent.js */ 33));
-
-var _$parent = _interopRequireDefault(__webpack_require__(/*! ./libs/function/$parent.js */ 34));
 
 
 
-var _sys = __webpack_require__(/*! ./libs/function/sys.js */ 35);
 
-var _debounce = _interopRequireDefault(__webpack_require__(/*! ./libs/function/debounce.js */ 36));
+var _queryParams = _interopRequireDefault(__webpack_require__(/*! ./libs/function/queryParams.js */ 19));
 
-var _throttle = _interopRequireDefault(__webpack_require__(/*! ./libs/function/throttle.js */ 37));
+var _route = _interopRequireDefault(__webpack_require__(/*! ./libs/function/route.js */ 20));
+
+var _timeFormat = _interopRequireDefault(__webpack_require__(/*! ./libs/function/timeFormat.js */ 24));
+
+var _timeFrom = _interopRequireDefault(__webpack_require__(/*! ./libs/function/timeFrom.js */ 25));
+
+var _colorGradient = _interopRequireDefault(__webpack_require__(/*! ./libs/function/colorGradient.js */ 26));
+
+var _guid = _interopRequireDefault(__webpack_require__(/*! ./libs/function/guid.js */ 27));
+
+var _color = _interopRequireDefault(__webpack_require__(/*! ./libs/function/color.js */ 28));
+
+var _type2icon = _interopRequireDefault(__webpack_require__(/*! ./libs/function/type2icon.js */ 29));
+
+var _randomArray = _interopRequireDefault(__webpack_require__(/*! ./libs/function/randomArray.js */ 30));
+
+var _deepClone = _interopRequireDefault(__webpack_require__(/*! ./libs/function/deepClone.js */ 17));
+
+var _deepMerge = _interopRequireDefault(__webpack_require__(/*! ./libs/function/deepMerge.js */ 16));
+
+var _addUnit = _interopRequireDefault(__webpack_require__(/*! ./libs/function/addUnit.js */ 31));
+
+
+var _test = _interopRequireDefault(__webpack_require__(/*! ./libs/function/test.js */ 18));
+
+var _random = _interopRequireDefault(__webpack_require__(/*! ./libs/function/random.js */ 32));
+
+var _trim = _interopRequireDefault(__webpack_require__(/*! ./libs/function/trim.js */ 33));
+
+var _toast = _interopRequireDefault(__webpack_require__(/*! ./libs/function/toast.js */ 34));
+
+var _getParent = _interopRequireDefault(__webpack_require__(/*! ./libs/function/getParent.js */ 35));
+
+var _$parent = _interopRequireDefault(__webpack_require__(/*! ./libs/function/$parent.js */ 36));
 
 
 
-var _config = _interopRequireDefault(__webpack_require__(/*! ./libs/config/config.js */ 38));
+var _sys = __webpack_require__(/*! ./libs/function/sys.js */ 37);
 
-var _zIndex = _interopRequireDefault(__webpack_require__(/*! ./libs/config/zIndex.js */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 引入全局mixin
+var _debounce = _interopRequireDefault(__webpack_require__(/*! ./libs/function/debounce.js */ 38));
+
+var _throttle = _interopRequireDefault(__webpack_require__(/*! ./libs/function/throttle.js */ 39));
+
+
+
+var _config = _interopRequireDefault(__webpack_require__(/*! ./libs/config/config.js */ 40));
+
+var _zIndex = _interopRequireDefault(__webpack_require__(/*! ./libs/config/zIndex.js */ 41));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 引入全局mixin
 // 引入关于是否mixin集成小程序分享的配置
 // import wxshare from './libs/mixin/mpShare.js'
 // 全局挂载引入http相关请求拦截插件
@@ -8305,7 +8629,7 @@ var install = function install(Vue) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 12 */
+/* 14 */
 /*!*******************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/mixin/mixin.js ***!
   \*******************************************************************************/
@@ -8378,7 +8702,7 @@ var install = function install(Vue) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 13 */
+/* 15 */
 /*!*********************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/request/index.js ***!
   \*********************************************************************************/
@@ -8386,8 +8710,8 @@ var install = function install(Vue) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _deepMerge = _interopRequireDefault(__webpack_require__(/*! ../function/deepMerge */ 14));
-var _test = _interopRequireDefault(__webpack_require__(/*! ../function/test */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _deepMerge = _interopRequireDefault(__webpack_require__(/*! ../function/deepMerge */ 16));
+var _test = _interopRequireDefault(__webpack_require__(/*! ../function/test */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
 Request = /*#__PURE__*/function () {_createClass(Request, [{ key: "setConfig",
     // 设置全局默认配置
     value: function setConfig(customConfig) {
@@ -8558,7 +8882,7 @@ new Request();exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 14 */
+/* 16 */
 /*!**************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/deepMerge.js ***!
   \**************************************************************************************/
@@ -8566,7 +8890,7 @@ new Request();exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _deepClone = _interopRequireDefault(__webpack_require__(/*! ./deepClone */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _deepClone = _interopRequireDefault(__webpack_require__(/*! ./deepClone */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // JS对象深度合并
 function deepMerge() {var target = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};var source = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -8598,7 +8922,7 @@ function deepMerge() {var target = arguments.length > 0 && arguments[0] !== unde
 deepMerge;exports.default = _default;
 
 /***/ }),
-/* 15 */
+/* 17 */
 /*!**************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/deepClone.js ***!
   \**************************************************************************************/
@@ -8631,7 +8955,7 @@ function deepClone(obj) {
 deepClone;exports.default = _default;
 
 /***/ }),
-/* 16 */
+/* 18 */
 /*!*********************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/test.js ***!
   \*********************************************************************************/
@@ -8872,7 +9196,7 @@ function code(value) {var len = arguments.length > 1 && arguments[1] !== undefin
   code: code };exports.default = _default;
 
 /***/ }),
-/* 17 */
+/* 19 */
 /*!****************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/queryParams.js ***!
   \****************************************************************************************/
@@ -8940,7 +9264,7 @@ function queryParams() {var data = arguments.length > 0 && arguments[0] !== unde
 queryParams;exports.default = _default;
 
 /***/ }),
-/* 18 */
+/* 20 */
 /*!**********************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/route.js ***!
   \**********************************************************************************/
@@ -8948,7 +9272,7 @@ queryParams;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} /**
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} /**
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           * 路由跳转方法，该方法相对于直接使用uni.xxx的好处是使用更加简单快捷
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           * 并且带有路由拦截功能
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           */var
@@ -9073,17 +9397,17 @@ new Router().route;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 19 */
+/* 21 */
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 20);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 22);
 
 /***/ }),
-/* 20 */
+/* 22 */
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -9114,7 +9438,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 21);
+module.exports = __webpack_require__(/*! ./runtime */ 23);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -9130,7 +9454,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -9861,7 +10185,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /*!***************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/timeFormat.js ***!
   \***************************************************************************************/
@@ -9922,7 +10246,7 @@ function timeFormat() {var dateTime = arguments.length > 0 && arguments[0] !== u
 timeFormat;exports.default = _default;
 
 /***/ }),
-/* 23 */
+/* 25 */
 /*!*************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/timeFrom.js ***!
   \*************************************************************************************/
@@ -9930,7 +10254,7 @@ timeFormat;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _timeFormat = _interopRequireDefault(__webpack_require__(/*! ../../libs/function/timeFormat.js */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _timeFormat = _interopRequireDefault(__webpack_require__(/*! ../../libs/function/timeFormat.js */ 24));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 /**
                                                                                                                                                                                                                                                                                           * 时间戳转为多久之前
@@ -9979,7 +10303,7 @@ function timeFrom() {var dateTime = arguments.length > 0 && arguments[0] !== und
 timeFrom;exports.default = _default;
 
 /***/ }),
-/* 24 */
+/* 26 */
 /*!******************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/colorGradient.js ***!
   \******************************************************************************************/
@@ -10122,7 +10446,7 @@ function colorToRgba(color) {var alpha = arguments.length > 1 && arguments[1] !=
   colorToRgba: colorToRgba };exports.default = _default;
 
 /***/ }),
-/* 25 */
+/* 27 */
 /*!*********************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/guid.js ***!
   \*********************************************************************************/
@@ -10173,7 +10497,7 @@ function guid() {var len = arguments.length > 0 && arguments[0] !== undefined ? 
 guid;exports.default = _default;
 
 /***/ }),
-/* 26 */
+/* 28 */
 /*!**********************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/color.js ***!
   \**********************************************************************************/
@@ -10220,7 +10544,7 @@ var color = {
 color;exports.default = _default;
 
 /***/ }),
-/* 27 */
+/* 29 */
 /*!**************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/type2icon.js ***!
   \**************************************************************************************/
@@ -10265,7 +10589,7 @@ function type2icon() {var type = arguments.length > 0 && arguments[0] !== undefi
 type2icon;exports.default = _default;
 
 /***/ }),
-/* 28 */
+/* 30 */
 /*!****************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/randomArray.js ***!
   \****************************************************************************************/
@@ -10282,7 +10606,7 @@ function randomArray() {var array = arguments.length > 0 && arguments[0] !== und
 randomArray;exports.default = _default;
 
 /***/ }),
-/* 29 */
+/* 31 */
 /*!************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/addUnit.js ***!
   \************************************************************************************/
@@ -10290,7 +10614,7 @@ randomArray;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = addUnit;var _test = _interopRequireDefault(__webpack_require__(/*! ./test.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = addUnit;var _test = _interopRequireDefault(__webpack_require__(/*! ./test.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 添加单位，如果有rpx，%，px等单位结尾或者值为auto，直接返回，否则加上rpx单位结尾
 function addUnit() {var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'auto';var unit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'rpx';
@@ -10300,7 +10624,7 @@ function addUnit() {var value = arguments.length > 0 && arguments[0] !== undefin
 }
 
 /***/ }),
-/* 30 */
+/* 32 */
 /*!***********************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/random.js ***!
   \***********************************************************************************/
@@ -10320,7 +10644,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 random;exports.default = _default;
 
 /***/ }),
-/* 31 */
+/* 33 */
 /*!*********************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/trim.js ***!
   \*********************************************************************************/
@@ -10345,7 +10669,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 trim;exports.default = _default;
 
 /***/ }),
-/* 32 */
+/* 34 */
 /*!**********************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/toast.js ***!
   \**********************************************************************************/
@@ -10365,7 +10689,7 @@ toast;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 33 */
+/* 35 */
 /*!**************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/getParent.js ***!
   \**************************************************************************************/
@@ -10422,7 +10746,7 @@ function getParent(name, keys) {
 }
 
 /***/ }),
-/* 34 */
+/* 36 */
 /*!************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/$parent.js ***!
   \************************************************************************************/
@@ -10450,7 +10774,7 @@ function $parent() {var name = arguments.length > 0 && arguments[0] !== undefine
 }
 
 /***/ }),
-/* 35 */
+/* 37 */
 /*!********************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/sys.js ***!
   \********************************************************************************/
@@ -10468,7 +10792,7 @@ function sys() {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 36 */
+/* 38 */
 /*!*************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/debounce.js ***!
   \*************************************************************************************/
@@ -10507,7 +10831,7 @@ function debounce(func) {var wait = arguments.length > 1 && arguments[1] !== und
 debounce;exports.default = _default;
 
 /***/ }),
-/* 37 */
+/* 39 */
 /*!*************************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/function/throttle.js ***!
   \*************************************************************************************/
@@ -10549,7 +10873,7 @@ function throttle(func) {var wait = arguments.length > 1 && arguments[1] !== und
 throttle;exports.default = _default;
 
 /***/ }),
-/* 38 */
+/* 40 */
 /*!*********************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/config/config.js ***!
   \*********************************************************************************/
@@ -10572,7 +10896,7 @@ var version = '1.8.4';var _default =
   'warning'] };exports.default = _default;
 
 /***/ }),
-/* 39 */
+/* 41 */
 /*!*********************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/uview-ui/libs/config/zIndex.js ***!
   \*********************************************************************************/
@@ -10601,7 +10925,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   indexListSticky: 965 };exports.default = _default;
 
 /***/ }),
-/* 40 */
+/* 42 */
 /*!*****************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/store/index.js ***!
   \*****************************************************************/
@@ -10610,9 +10934,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 41));
-var _getters = _interopRequireDefault(__webpack_require__(/*! ./getters.js */ 42));
-var _index = __webpack_require__(/*! ./modules/index.js */ 43);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 43));
+var _getters = _interopRequireDefault(__webpack_require__(/*! ./getters.js */ 44));
+var _index = __webpack_require__(/*! ./modules/index.js */ 45);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 
 
@@ -10636,7 +10960,7 @@ new _vuex.default.Store({
   getters: _getters.default });exports.default = _default;
 
 /***/ }),
-/* 41 */
+/* 43 */
 /*!********************************************!*\
   !*** ./node_modules/vuex/dist/vuex.esm.js ***!
   \********************************************/
@@ -11748,7 +12072,7 @@ var index = {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ 3)))
 
 /***/ }),
-/* 42 */
+/* 44 */
 /*!*******************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/store/getters.js ***!
   \*******************************************************************/
@@ -11764,7 +12088,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 getters;exports.default = _default;
 
 /***/ }),
-/* 43 */
+/* 45 */
 /*!*************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/store/modules/index.js ***!
   \*************************************************************************/
@@ -11772,11 +12096,11 @@ getters;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });Object.defineProperty(exports, "app", { enumerable: true, get: function get() {return _app.default;} });Object.defineProperty(exports, "user", { enumerable: true, get: function get() {return _user.default;} });var _app = _interopRequireDefault(__webpack_require__(/*! ./app.js */ 44));
-var _user = _interopRequireDefault(__webpack_require__(/*! ./user.js */ 45));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });Object.defineProperty(exports, "app", { enumerable: true, get: function get() {return _app.default;} });Object.defineProperty(exports, "user", { enumerable: true, get: function get() {return _user.default;} });var _app = _interopRequireDefault(__webpack_require__(/*! ./app.js */ 46));
+var _user = _interopRequireDefault(__webpack_require__(/*! ./user.js */ 47));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 /***/ }),
-/* 44 */
+/* 46 */
 /*!***********************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/store/modules/app.js ***!
   \***********************************************************************/
@@ -11800,7 +12124,7 @@ var app = {
 app;exports.default = _default;
 
 /***/ }),
-/* 45 */
+/* 47 */
 /*!************************************************************************!*\
   !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/store/modules/user.js ***!
   \************************************************************************/
@@ -11823,6 +12147,1932 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 user;exports.default = _default;
+
+/***/ }),
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */
+/*!**************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/api/home.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.detail = detail;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 55));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+//api地址
+var apiUrl = {
+  detail: 'page/detail' };
+
+//获取首页的数据
+function detail(pageId) {
+  return _request.default.get(apiUrl.detail, { pageId: pageId });
+}
+
+/***/ }),
+/* 55 */
+/*!*************************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/request/index.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 21));
+
+
+var _store = _interopRequireDefault(__webpack_require__(/*! @/store */ 42));
+var _request = _interopRequireDefault(__webpack_require__(/*! ./request */ 56));
+var _config = _interopRequireDefault(__webpack_require__(/*! @/config */ 67));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _createForOfIteratorHelper(o, allowArrayLike) {var it;if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = o[Symbol.iterator]();}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it.return != null) it.return();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}
+// 后端api地址
+var baseURL = _config.default.apiUrl;
+
+// 可以new多个request来支持多个域名请求
+var $http = new _request.default({
+  // 接口请求地址
+  baseUrl: baseURL,
+  // 服务器本地上传文件地址
+  fileUrl: baseURL,
+  // 服务器上传图片默认url
+  defaultUploadUrl: 'upload/image',
+  // 设置请求头（如果使用报错跨域问题，可能是content-type请求类型和后台那边设置的不一致）
+  header: {
+    'content-type': 'application/json;charset=utf-8' },
+
+  // 请求超时时间, 单位ms（默认15秒）
+  timeout: 15000,
+  // 默认配置（可不写）
+  config: {
+    // 是否自动提示错误
+    isPrompt: true,
+    // 是否显示加载动画
+    load: true,
+    // 是否使用数据工厂
+    isFactory: true } });
+
+
+
+// 当前接口请求数
+var requestNum = 0;
+// 请求开始拦截器
+$http.requestStart = function (options) {
+  if (options.load) {
+    if (requestNum <= 0) {
+      // 打开加载动画
+      uni.showLoading({
+        title: '加载中',
+        mask: true });
+
+    }
+    requestNum += 1;
+  }
+  // 图片上传大小限制
+  if (options.method == "FILE" && options.maxSize) {
+    // 文件最大字节: options.maxSize 可以在调用方法的时候加入参数
+    var maxSize = options.maxSize;var _iterator = _createForOfIteratorHelper(
+    options.files),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var item = _step.value;
+        if (item.size > maxSize) {
+          setTimeout(function () {
+            uni.showToast({
+              title: "图片过大，请重新上传",
+              icon: "none" });
+
+          }, 10);
+          return false;
+        }
+      }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+  }
+  // 请求前加入当前终端
+  options.header['platform'] = _store.default.getters.platform;
+  // 请求前加入Token
+  options.header['Access-Token'] = _store.default.getters.token;
+  // return false 表示请求拦截，不会继续请求
+  return options;
+};
+
+// 请求结束
+$http.requestEnd = function (options) {
+  // 判断当前接口是否需要加载动画
+  if (options.load) {
+    requestNum = requestNum - 1;
+    if (requestNum <= 0) {
+      uni.hideLoading();
+    }
+  }
+};
+
+// 登录弹窗次数
+var loginPopupNum = 0;
+
+// 所有接口数据处理（可在接口里设置不调用此方法）
+// 此方法需要开发者根据各自的接口返回类型修改，以下只是模板
+$http.dataFactory = /*#__PURE__*/function () {var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(res) {var httpData;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (!(
+
+
+
+
+
+
+
+
+            !res.response.statusCode || res.response.statusCode != 200)) {_context.next = 2;break;}return _context.abrupt("return",
+
+            Promise.reject({
+              statusCode: res.response.statusCode,
+              // errMsg: "数据工厂验证不通过"
+              errMsg: 'http状态码错误' }));case 2:
+
+
+
+            httpData = res.response.data;
+            if (typeof httpData == "string") {
+              try {
+                httpData = JSON.parse(httpData);
+              } catch (_unused) {
+                httpData = false;
+              }
+            }if (!(
+            httpData === false || typeof httpData !== 'object')) {_context.next = 6;break;}return _context.abrupt("return",
+
+            Promise.reject({
+              statusCode: res.response.statusCode,
+              errMsg: "数据工厂验证不通过" }));case 6:if (!(
+
+
+
+
+
+
+
+            httpData.status == 200)) {_context.next = 8;break;}return _context.abrupt("return",
+
+            Promise.resolve(httpData));case 8:if (!(
+
+
+
+            httpData.status == 401)) {_context.next = 12;break;}
+            // 401也有可能是后端登录态到期, 所以要清空本地的登录状态
+            _store.default.dispatch('Logout');
+            // 弹窗告诉用户去登录
+            if (loginPopupNum <= 0) {
+              loginPopupNum++;
+              uni.showModal({
+                title: '温馨提示',
+                content: '此时此刻需要您登录喔~',
+                confirmText: "去登录",
+                cancelText: "再逛会",
+                success: function success(res) {
+                  loginPopupNum--;
+                  if (res.confirm) {
+                    uni.navigateTo({
+                      url: "/pages/login/index" });
+
+                  }
+                } });
+
+            }
+            // 返回错误的结果(catch接受数据)
+            return _context.abrupt("return", Promise.reject({
+              statusCode: 0,
+              errMsg: httpData.message,
+              result: httpData }));case 12:if (!(
+
+
+
+
+            httpData.status == 500)) {_context.next = 15;break;}
+            if (res.isPrompt) {
+              setTimeout(function () {
+                uni.showToast({
+                  title: httpData.message,
+                  icon: "none",
+                  duration: 2500 },
+                10);
+              });
+            }
+            // 返回错误的结果(catch接受数据)
+            return _context.abrupt("return", Promise.reject({
+              statusCode: 0,
+              errMsg: httpData.message,
+              result: httpData }));case 15:case "end":return _context.stop();}}}, _callee);}));return function (_x) {return _ref.apply(this, arguments);};}();
+
+
+
+
+
+
+// 错误回调
+$http.requestError = function (e) {
+  if (e.statusCode === 0) {
+    throw e;
+  } else {
+    setTimeout(function () {
+      uni.showToast({
+        title: "\u7F51\u7EDC\u8BF7\u6C42\u51FA\u9519\uFF1A".concat(e.errMsg),
+        icon: "none",
+        duration: 2500 });
+
+    });
+  }
+};var _default =
+$http;exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+/* 56 */
+/*!***************************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/request/request.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+var _upload = _interopRequireDefault(__webpack_require__(/*! ./upload/upload.js */ 57));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /***************纯粹的数据请求（如果使用这种可以删除掉fileUpload.js）******************/ // import request from "./core/request.js";
+// export default request;
+/********数据请求同时继承了文件上传（包括七牛云上传）************/var _default = _upload.default;exports.default = _default;
+
+/***/ }),
+/* 57 */
+/*!*********************************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/request/upload/upload.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 21));var _request2 = _interopRequireDefault(__webpack_require__(/*! ./../core/request.js */ 58));
+
+
+
+
+
+
+
+var _utils = __webpack_require__(/*! ./../core/utils.js */ 59);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}function _createSuper(Derived) {var hasNativeReflectConstruct = _isNativeReflectConstruct();return function _createSuperInternal() {var Super = _getPrototypeOf(Derived),result;if (hasNativeReflectConstruct) {var NewTarget = _getPrototypeOf(this).constructor;result = Reflect.construct(Super, arguments, NewTarget);} else {result = Super.apply(this, arguments);}return _possibleConstructorReturn(this, result);};}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _isNativeReflectConstruct() {if (typeof Reflect === "undefined" || !Reflect.construct) return false;if (Reflect.construct.sham) return false;if (typeof Proxy === "function") return true;try {Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));return true;} catch (e) {return false;}}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}var _require = __webpack_require__(/*! ./utils */ 60),chooseImage = _require.chooseImage,chooseVideo = _require.chooseVideo,qiniuUpload = _require.qiniuUpload,aliUpload = _require.aliUpload,urlUpload = _require.urlUpload;var
+
+
+fileUpload = /*#__PURE__*/function (_request) {_inherits(fileUpload, _request);var _super = _createSuper(fileUpload);
+  function fileUpload(props) {_classCallCheck(this, fileUpload);
+    // 调用实现父类的构造函数
+    return _super.call(this, props);
+  }
+  //七牛云上传图片
+  _createClass(fileUpload, [{ key: "qnImgUpload", value: function () {var _qnImgUpload = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var options,files,_args = arguments;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:options = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};_context.prev = 1;_context.next = 4;return (
+
+
+                  chooseImage(options));case 4:files = _context.sent;
+                // 选择完成回调
+                options.onSelectComplete && options.onSelectComplete(files);_context.next = 12;break;case 8:_context.prev = 8;_context.t0 = _context["catch"](1);
+
+                this.requestError && this.requestError(_context.t0);return _context.abrupt("return",
+                Promise.reject(_context.t0));case 12:if (!
+
+                files) {_context.next = 14;break;}return _context.abrupt("return",
+                this.qnFileUpload(_objectSpread(_objectSpread({},
+                options), {}, {
+                  files: files })));case 14:case "end":return _context.stop();}}}, _callee, this, [[1, 8]]);}));function qnImgUpload() {return _qnImgUpload.apply(this, arguments);}return qnImgUpload;}()
+
+
+
+    //七牛云上传视频
+  }, { key: "qnVideoUpload", value: function () {var _qnVideoUpload = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var options,files,_args2 = arguments;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:options = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : {};_context2.prev = 1;_context2.next = 4;return (
+
+
+                  chooseVideo(options));case 4:files = _context2.sent;
+                // 选择完成回调
+                options.onSelectComplete && options.onSelectComplete(files);_context2.next = 12;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](1);
+
+                this.requestError && this.requestError(_context2.t0);return _context2.abrupt("return",
+                Promise.reject(_context2.t0));case 12:if (!
+
+                files) {_context2.next = 14;break;}return _context2.abrupt("return",
+                this.qnFileUpload(_objectSpread(_objectSpread({},
+                options), {}, {
+                  files: files })));case 14:case "end":return _context2.stop();}}}, _callee2, this, [[1, 8]]);}));function qnVideoUpload() {return _qnVideoUpload.apply(this, arguments);}return qnVideoUpload;}()
+
+
+
+
+    //七牛云文件上传（支持多张上传）
+  }, { key: "qnFileUpload", value: function () {var _qnFileUpload = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var options,requestInfo,requestStart,changekeys,requestResult,_args3 = arguments;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:options = _args3.length > 0 && _args3[0] !== undefined ? _args3[0] : {};_context3.prev = 1;
+
+
+                // 数据合并
+                requestInfo = _objectSpread(_objectSpread(_objectSpread({},
+                this.config),
+                options), {}, {
+                  header: {},
+                  method: "FILE" });
+
+                //请求前回调
+                if (!this.requestStart) {_context3.next = 11;break;}
+                requestStart = this.requestStart(requestInfo);if (!(
+                typeof requestStart == "object")) {_context3.next = 10;break;}
+                changekeys = ["load", "files"];
+                changekeys.forEach(function (key) {
+                  requestInfo[key] = requestStart[key];
+                });_context3.next = 11;break;case 10:throw (
+
+                  {
+                    errMsg: "【request】请求开始拦截器未通过",
+                    statusCode: 0,
+                    data: requestInfo.data,
+                    method: requestInfo.method,
+                    header: requestInfo.header,
+                    url: requestInfo.url });case 11:_context3.next = 13;return (
+
+
+
+                  qiniuUpload(requestInfo, this.getQnToken));case 13:requestResult = _context3.sent;return _context3.abrupt("return",
+                Promise.resolve(requestResult));case 17:_context3.prev = 17;_context3.t0 = _context3["catch"](1);
+
+                this.requestError && this.requestError(_context3.t0);return _context3.abrupt("return",
+                Promise.reject(_context3.t0));case 21:_context3.prev = 21;
+
+                this.requestEnd && this.requestEnd(requestInfo);return _context3.finish(21);case 24:case "end":return _context3.stop();}}}, _callee3, this, [[1, 17, 21, 24]]);}));function qnFileUpload() {return _qnFileUpload.apply(this, arguments);}return qnFileUpload;}()
+
+
+    //阿里云上传图片
+  }, { key: "aliImgUpload", value: function () {var _aliImgUpload = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var options,files,_args4 = arguments;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:options = _args4.length > 0 && _args4[0] !== undefined ? _args4[0] : {};_context4.prev = 1;_context4.next = 4;return (
+
+
+                  chooseImage(options));case 4:files = _context4.sent;
+                // 选择完成回调
+                options.onSelectComplete && options.onSelectComplete(files);_context4.next = 12;break;case 8:_context4.prev = 8;_context4.t0 = _context4["catch"](1);
+
+                this.requestError && this.requestError(_context4.t0);return _context4.abrupt("return",
+                Promise.reject(_context4.t0));case 12:if (!
+
+                files) {_context4.next = 14;break;}return _context4.abrupt("return",
+                this.aliFileUpload(_objectSpread(_objectSpread({},
+                options), {}, {
+                  files: files })));case 14:case "end":return _context4.stop();}}}, _callee4, this, [[1, 8]]);}));function aliImgUpload() {return _aliImgUpload.apply(this, arguments);}return aliImgUpload;}()
+
+
+
+    //阿里云上传视频
+  }, { key: "aliVideoUpload", value: function () {var _aliVideoUpload = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var options,files,_args5 = arguments;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:options = _args5.length > 0 && _args5[0] !== undefined ? _args5[0] : {};_context5.prev = 1;_context5.next = 4;return (
+
+
+                  chooseVideo(options));case 4:files = _context5.sent;
+                // 选择完成回调
+                options.onSelectComplete && options.onSelectComplete(files);_context5.next = 12;break;case 8:_context5.prev = 8;_context5.t0 = _context5["catch"](1);
+
+                this.requestError && this.requestError(_context5.t0);return _context5.abrupt("return",
+                Promise.reject(_context5.t0));case 12:if (!
+
+                files) {_context5.next = 14;break;}return _context5.abrupt("return",
+                this.aliFileUpload(_objectSpread(_objectSpread({},
+                options), {}, {
+                  files: files })));case 14:case "end":return _context5.stop();}}}, _callee5, this, [[1, 8]]);}));function aliVideoUpload() {return _aliVideoUpload.apply(this, arguments);}return aliVideoUpload;}()
+
+
+
+    //阿里云文件上传（支持多张上传）
+  }, { key: "aliFileUpload", value: function () {var _aliFileUpload = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var options,requestInfo,requestStart,changekeys,requestResult,_args6 = arguments;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:options = _args6.length > 0 && _args6[0] !== undefined ? _args6[0] : {};_context6.prev = 1;
+
+
+                // 数据合并
+                requestInfo = _objectSpread(_objectSpread(_objectSpread({},
+                this.config),
+                options), {}, {
+                  header: {},
+                  method: "FILE" });
+
+                //请求前回调
+                if (!this.requestStart) {_context6.next = 11;break;}
+                requestStart = this.requestStart(requestInfo);if (!(
+                typeof requestStart == "object")) {_context6.next = 10;break;}
+                changekeys = ["load", "files"];
+                changekeys.forEach(function (key) {
+                  requestInfo[key] = requestStart[key];
+                });_context6.next = 11;break;case 10:throw (
+
+                  {
+                    errMsg: "【request】请求开始拦截器未通过",
+                    statusCode: 0,
+                    data: requestInfo.data,
+                    method: requestInfo.method,
+                    header: requestInfo.header,
+                    url: requestInfo.url });case 11:_context6.next = 13;return (
+
+
+
+                  aliUpload(requestInfo, this.getAliToken));case 13:requestResult = _context6.sent;return _context6.abrupt("return",
+                Promise.resolve(requestResult));case 17:_context6.prev = 17;_context6.t0 = _context6["catch"](1);
+
+                this.requestError && this.requestError(_context6.t0);return _context6.abrupt("return",
+                Promise.reject(_context6.t0));case 21:_context6.prev = 21;
+
+                this.requestEnd && this.requestEnd(requestInfo);return _context6.finish(21);case 24:case "end":return _context6.stop();}}}, _callee6, this, [[1, 17, 21, 24]]);}));function aliFileUpload() {return _aliFileUpload.apply(this, arguments);}return aliFileUpload;}()
+
+
+    //本地服务器图片上传
+  }, { key: "urlImgUpload", value: function () {var _urlImgUpload = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7() {var options,_args7 = arguments;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:
+                options = {};
+                if (_args7[0]) {
+                  if (typeof _args7[0] == "string") {
+                    options.url = _args7[0];
+                  } else if (typeof _args7[0] == "object") {
+                    options = Object.assign(options, _args7[0]);
+                  }
+                }
+                if (_args7[1] && typeof _args7[1] == "object") {
+                  options = Object.assign(options, _args7[1]);
+                }_context7.prev = 3;_context7.next = 6;return (
+
+                  chooseImage(options));case 6:options.files = _context7.sent;
+                // 选择完成回调
+                options.onSelectComplete && options.onSelectComplete(options.files);_context7.next = 14;break;case 10:_context7.prev = 10;_context7.t0 = _context7["catch"](3);
+
+                this.requestError && this.requestError(_context7.t0);return _context7.abrupt("return",
+                Promise.reject(_context7.t0));case 14:if (!
+
+                options.files) {_context7.next = 16;break;}return _context7.abrupt("return",
+                this.urlFileUpload(options));case 16:case "end":return _context7.stop();}}}, _callee7, this, [[3, 10]]);}));function urlImgUpload() {return _urlImgUpload.apply(this, arguments);}return urlImgUpload;}()
+
+
+    //本地服务器上传视频
+  }, { key: "urlVideoUpload", value: function () {var _urlVideoUpload = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8() {var options,_args8 = arguments;return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:
+                options = {};
+                if (_args8[0]) {
+                  if (typeof _args8[0] == "string") {
+                    options.url = _args8[0];
+                  } else if (typeof _args8[0] == "object") {
+                    options = Object.assign(options, _args8[0]);
+                  }
+                }
+                if (_args8[1] && typeof _args8[1] == "object") {
+                  options = Object.assign(options, _args8[1]);
+                }_context8.prev = 3;_context8.next = 6;return (
+
+                  chooseVideo(options));case 6:options.files = _context8.sent;
+                // 选择完成回调
+                options.onSelectComplete && options.onSelectComplete(options.files);_context8.next = 14;break;case 10:_context8.prev = 10;_context8.t0 = _context8["catch"](3);
+
+                this.requestError && this.requestError(_context8.t0);return _context8.abrupt("return",
+                Promise.reject(_context8.t0));case 14:if (!
+
+                options.files) {_context8.next = 16;break;}return _context8.abrupt("return",
+                this.urlFileUpload(options));case 16:case "end":return _context8.stop();}}}, _callee8, this, [[3, 10]]);}));function urlVideoUpload() {return _urlVideoUpload.apply(this, arguments);}return urlVideoUpload;}()
+
+
+    //本地服务器文件上传方法
+  }, { key: "urlFileUpload", value: function () {var _urlFileUpload = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee9() {var requestInfo,runRequestStart,requestStart,changekeys,requestResult,_args9 = arguments;return _regenerator.default.wrap(function _callee9$(_context9) {while (1) {switch (_context9.prev = _context9.next) {case 0:
+                requestInfo = {
+                  method: "FILE" };
+
+                if (_args9[0]) {
+                  if (typeof _args9[0] == "string") {
+                    requestInfo.url = _args9[0];
+                  } else if (typeof _args9[0] == "object") {
+                    requestInfo = Object.assign(requestInfo, _args9[0]);
+                  }
+                }
+                if (_args9[1] && typeof _args9[1] == "object") {
+                  requestInfo = Object.assign(requestInfo, _args9[1]);
+                }
+                if (!requestInfo.url && this.defaultUploadUrl) {
+                  requestInfo.url = this.defaultUploadUrl;
+                }
+                if (!requestInfo.name && this.defaultFileName) {
+                  requestInfo.name = this.defaultFileName;
+                }
+                // 请求数据
+                // 是否运行过请求开始钩子
+                runRequestStart = false;_context9.prev = 6;if (
+
+                requestInfo.url) {_context9.next = 9;break;}throw (
+                  {
+                    errMsg: "【request】文件上传缺失数据url",
+                    statusCode: 0,
+                    data: requestInfo.data,
+                    method: requestInfo.method,
+                    header: requestInfo.header,
+                    url: requestInfo.url });case 9:
+
+
+                // 数据合并
+                requestInfo = (0, _utils.mergeConfig)(this, requestInfo);
+                // 代表之前运行到这里
+                runRequestStart = true;
+                //请求前回调
+                if (!this.requestStart) {_context9.next = 19;break;}
+                requestStart = this.requestStart(requestInfo);if (!(
+                typeof requestStart == "object")) {_context9.next = 18;break;}
+                changekeys = ["data", "header", "isPrompt", "load", "isFactory", "files"];
+                changekeys.forEach(function (key) {
+                  requestInfo[key] = requestStart[key];
+                });_context9.next = 19;break;case 18:throw (
+
+                  {
+                    errMsg: "【request】请求开始拦截器未通过",
+                    statusCode: 0,
+                    data: requestInfo.data,
+                    method: requestInfo.method,
+                    header: requestInfo.header,
+                    url: requestInfo.url });case 19:_context9.next = 21;return (
+
+
+
+                  urlUpload(requestInfo, this.dataFactory));case 21:requestResult = _context9.sent;return _context9.abrupt("return",
+                Promise.resolve(requestResult));case 25:_context9.prev = 25;_context9.t0 = _context9["catch"](6);
+
+                this.requestError && this.requestError(_context9.t0);return _context9.abrupt("return",
+                Promise.reject(_context9.t0));case 29:_context9.prev = 29;
+
+                if (runRequestStart) {
+                  this.requestEnd && this.requestEnd(requestInfo);
+                }return _context9.finish(29);case 32:case "end":return _context9.stop();}}}, _callee9, this, [[6, 25, 29, 32]]);}));function urlFileUpload() {return _urlFileUpload.apply(this, arguments);}return urlFileUpload;}() }]);return fileUpload;}(_request2.default);exports.default = fileUpload;
+
+/***/ }),
+/* 58 */
+/*!********************************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/request/core/request.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 21));var _utils = __webpack_require__(/*! ./utils.js */ 59);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+request = /*#__PURE__*/function () {
+  function request(options) {_classCallCheck(this, request);
+    //请求公共地址
+    this.baseUrl = options.baseUrl || "";
+    //公共文件上传请求地址
+    this.fileUrl = options.fileUrl || "";
+    // 超时时间
+    this.timeout = options.timeout || 6000;
+    // 服务器上传图片默认url
+    this.defaultUploadUrl = options.defaultUploadUrl || "";
+    // 服务器上传文件名称
+    this.defaultFileName = options.defaultFileName || "";
+    //默认请求头
+    this.header = options.header || {};
+    //默认配置
+    this.config = options.config || {
+      isPrompt: true,
+      load: true,
+      isFactory: true,
+      resend: 0 };
+
+  }
+  //post请求
+  _createClass(request, [{ key: "post", value: function post() {var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      return this.request(_objectSpread({
+        method: "POST",
+        data: data,
+        url: url },
+      options));
+
+    }
+
+    //get请求
+  }, { key: "get", value: function get() {var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      return this.request(_objectSpread({
+        method: "GET",
+        data: data,
+        url: url },
+      options));
+
+    }
+
+    //put请求
+  }, { key: "put", value: function put() {var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      return this.request(_objectSpread({
+        method: "PUT",
+        data: data,
+        url: url },
+      options));
+
+    }
+
+    //delete请求
+  }, { key: "delete", value: function _delete() {var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      return this.request(_objectSpread({
+        method: "DELETE",
+        data: data,
+        url: url },
+      options));
+
+    }
+    //jsonp请求(只限于H5使用)
+  }, { key: "jsonp", value: function jsonp() {var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      return this.request(_objectSpread({
+        method: "JSONP",
+        data: data,
+        url: url },
+      options));
+
+    }
+    //接口请求方法
+  }, { key: "request", value: function () {var _request = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(data) {var requestInfo, runRequestStart, requestStart, changekeys, requestResult, result;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                // 请求数据
+
+
+                runRequestStart = false;_context.prev = 1;if (
+
+                data.url) {_context.next = 4;break;}throw (
+                  { errMsg: "【request】缺失数据url", statusCode: 0 });case 4:
+
+                // 数据合并
+                requestInfo = (0, _utils.mergeConfig)(this, data);
+                // 代表之前运行到这里
+                runRequestStart = true;
+                //请求前回调
+                if (!this.requestStart) {_context.next = 14;break;}
+                requestStart = this.requestStart(requestInfo);if (!(
+                typeof requestStart == "object")) {_context.next = 13;break;}
+                changekeys = ["data", "header", "isPrompt", "load", "isFactory"];
+                changekeys.forEach(function (key) {
+                  requestInfo[key] = requestStart[key];
+                });_context.next = 14;break;case 13:throw (
+
+                  {
+                    errMsg: "【request】请求开始拦截器未通过",
+                    statusCode: 0,
+                    data: requestInfo.data,
+                    method: requestInfo.method,
+                    header: requestInfo.header,
+                    url: requestInfo.url });case 14:
+
+
+
+                requestResult = {};if (!(
+                requestInfo.method == "JSONP")) {_context.next = 21;break;}_context.next = 18;return (
+                  (0, _utils.jsonpRequest)(requestInfo));case 18:requestResult = _context.sent;_context.next = 24;break;case 21:_context.next = 23;return (
+
+                  (0, _utils.dispatchRequest)(requestInfo));case 23:requestResult = _context.sent;case 24:if (!(
+
+
+                requestInfo.isFactory && this.dataFactory)) {_context.next = 31;break;}_context.next = 27;return (
+
+                  this.dataFactory(_objectSpread(_objectSpread({},
+                  requestInfo), {}, {
+                    response: requestResult })));case 27:result = _context.sent;return _context.abrupt("return",
+
+                Promise.resolve(result));case 31:return _context.abrupt("return",
+
+                Promise.resolve(requestResult));case 32:_context.next = 38;break;case 34:_context.prev = 34;_context.t0 = _context["catch"](1);
+
+
+                this.requestError && this.requestError(_context.t0);return _context.abrupt("return",
+                Promise.reject(_context.t0));case 38:_context.prev = 38;
+
+                // 如果请求开始未运行到，请求结束也不运行
+                if (runRequestStart) {
+                  this.requestEnd && this.requestEnd(requestInfo);
+                }return _context.finish(38);case 41:case "end":return _context.stop();}}}, _callee, this, [[1, 34, 38, 41]]);}));function request(_x) {return _request.apply(this, arguments);}return request;}() }]);return request;}();exports.default = request;
+
+/***/ }),
+/* 59 */
+/*!******************************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/request/core/utils.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.jsonpRequest = exports.dispatchRequest = exports.mergeConfig = void 0; // 获取合并的数据
+var mergeConfig = function mergeConfig(_this, options) {
+  //判断url是不是链接
+  var urlType = /^(http|https):\/\//.test(options.url);
+  var config = Object.assign({
+    timeout: _this.timeout },
+  _this.config, options);
+  if (options.method == "FILE") {
+    config.url = urlType ? options.url : _this.fileUrl + options.url;
+  } else {
+    config.url = urlType ? options.url : _this.baseUrl + options.url;
+  }
+  //请求头
+  if (options.header) {
+    config.header = Object.assign({}, _this.header, options.header);
+  } else {
+    config.header = Object.assign({}, _this.header);
+  }
+  return config;
+};
+// 请求
+exports.mergeConfig = mergeConfig;var dispatchRequest = function dispatchRequest(requestInfo) {
+  return new Promise(function (resolve, reject) {
+    var requestAbort = true;
+    var requestData = {
+      url: requestInfo.url,
+      header: requestInfo.header, //加入请求头
+      success: function success(res) {
+        requestAbort = false;
+        resolve(res);
+      },
+      fail: function fail(err) {
+        requestAbort = false;
+        if (err.errMsg == "request:fail abort") {
+          reject({
+            errMsg: "请求超时，请重新尝试",
+            statusCode: 0 });
+
+        } else {
+          reject(err);
+        }
+      } };
+
+    //请求类型
+    if (requestInfo.method) {
+      requestData.method = requestInfo.method;
+    }
+    if (requestInfo.data) {
+      requestData.data = requestInfo.data;
+    }
+
+    if (requestInfo.timeout) {
+      requestData.timeout = requestInfo.timeout;
+    }
+
+    if (requestInfo.dataType) {
+      requestData.dataType = requestInfo.dataType;
+    }
+
+    if (requestInfo.responseType) {
+      requestData.responseType = requestInfo.responseType;
+    }
+
+
+
+
+
+
+    var requestTask = uni.request(requestData);
+    setTimeout(function () {
+      if (requestAbort) {
+        requestTask.abort();
+      }
+    }, requestInfo.timeout);
+  });
+};
+// jsonp请求
+exports.dispatchRequest = dispatchRequest;var jsonpRequest = function jsonpRequest(requestInfo) {
+  return new Promise(function (resolve, reject) {
+    var dataStr = '';
+    Object.keys(requestInfo.data).forEach(function (key) {
+      dataStr += key + '=' + requestInfo.data[key] + '&';
+    });
+    //匹配最后一个&并去除
+    if (dataStr !== '') {
+      dataStr = dataStr.substr(0, dataStr.lastIndexOf('&'));
+    }
+    requestInfo.url = requestInfo.url + '?' + dataStr;
+    var callbackName = "callback" + Math.ceil(Math.random() * 1000000);
+
+
+
+
+
+
+
+
+
+
+  });
+};exports.jsonpRequest = jsonpRequest;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+/* 60 */
+/*!********************************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/request/upload/utils.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.urlUpload = exports.aliUpload = exports.qiniuUpload = exports.chooseVideo = exports.chooseImage = exports.randomChar = void 0;function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var qiniuUploader = __webpack_require__(/*! ./qiniuUploader */ 61);
+var aliUploader = __webpack_require__(/*! ./aliUploader */ 62);
+//七牛云上传文件命名
+var randomChar = function randomChar(l) {var url = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+  var x = "0123456789qwertyuioplkjhgfdsazxcvbnm";
+  var tmp = "";
+  var time = new Date();
+  for (var i = 0; i < l; i++) {
+    tmp += x.charAt(Math.ceil(Math.random() * 100000000) % x.length);
+  }
+  return (
+    "file/" +
+    url +
+    time.getTime() +
+    tmp);
+
+};
+//图片选择
+exports.randomChar = randomChar;var chooseImage = function chooseImage(data) {
+  return new Promise(function (resolve, reject) {
+    uni.chooseImage({
+      count: data.count || 9, //默认9
+      sizeType: data.sizeType || ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+      sourceType: data.sourceType || ['album', 'camera'], //从相册选择
+      success: function success(res) {
+        for (var i = 0; i < res.tempFiles.length; i++) {
+          res.tempFiles[i].fileType = "image";
+        }
+        resolve(res.tempFiles);
+      },
+      fail: function fail(err) {
+        reject({
+          errMsg: err.errMsg,
+          errCode: err.errCode,
+          statusCode: 0 });
+
+      } });
+
+  });
+};
+//视频选择
+exports.chooseImage = chooseImage;var chooseVideo = function chooseVideo(data) {
+  return new Promise(function (resolve, reject) {
+    uni.chooseVideo({
+      sourceType: data.sourceType || ['album', 'camera'], //从相册选择
+      compressed: data.compressed || false, //是否压缩所选的视频源文件，默认值为 true，需要压缩。
+      maxDuration: data.maxDuration || 60, //拍摄视频最长拍摄时间，单位秒。最长支持 60 秒。
+      camera: data.camera || 'back', //'front'、'back'，默认'back'
+      success: function success(res) {
+        var files = [{
+          path: res.tempFilePath,
+          fileType: "video" }];
+
+
+        files[0].duration = res.duration;
+        files[0].size = res.size;
+        files[0].height = res.height;
+        files[0].width = res.width;
+
+
+
+
+        resolve(files);
+      },
+      fail: function fail(err) {
+        reject({
+          errMsg: err.errMsg,
+          errCode: err.errCode,
+          statusCode: 0 });
+
+      } });
+
+  });
+};
+// 七牛云上传
+exports.chooseVideo = chooseVideo;var qiniuUpload = function qiniuUpload(requestInfo, getQnToken) {
+  return new Promise(function (resolve, reject) {
+    if (Array.isArray(requestInfo.files)) {
+      var len = requestInfo.files.length;
+      var fileList = new Array();
+      if (getQnToken) {
+        getQnToken(function (qnRes) {
+          /*
+                                      *接口返回参数：
+                                      *visitPrefix:访问文件的域名
+                                      *token:七牛云上传token
+                                      *folderPath:上传的文件夹
+                                      *region: 地区 默认为：SCN
+                                      */
+          var prefixLen = qnRes.visitPrefix.length;
+          if (qnRes.visitPrefix.charAt(prefixLen - 1) == '/') {
+            qnRes.visitPrefix = qnRes.visitPrefix.substring(0, prefixLen - 1);
+          }
+          uploadFile(0);
+
+          function uploadFile(i) {
+            var item = requestInfo.files[i];
+            var updateUrl = randomChar(10, qnRes.folderPath);
+            var fileData = _objectSpread({
+              fileIndex: i,
+              files: requestInfo.files },
+            item);
+
+            if (item.name) {
+              fileData.name = item.name;
+              var nameArr = item.name.split(".");
+              updateUrl += "." + nameArr[nameArr.length - 1];
+            }
+            // 交给七牛上传
+            qiniuUploader.upload(item.path || item, function (res) {
+              fileData.url = res.imageURL;
+              requestInfo.onEachUpdate && requestInfo.onEachUpdate(_objectSpread({
+                url: res.imageURL },
+              fileData));
+
+              fileList.push(res.imageURL);
+              if (len - 1 > i) {
+                uploadFile(i + 1);
+              } else {
+                resolve(fileList);
+              }
+            }, function (error) {
+              reject(error);
+            }, {
+              region: qnRes.region || 'SCN', //地区
+              domain: qnRes.visitPrefix, // bucket 域名，下载资源时用到。
+              key: updateUrl,
+              uptoken: qnRes.token, // 由其他程序生成七牛 uptoken
+              uptokenURL: 'UpTokenURL.com/uptoken' // 上传地址
+            }, function (res) {
+              console.log(requestInfo);
+              requestInfo.onProgressUpdate && requestInfo.onProgressUpdate(Object.assign({}, fileData, res));
+              // console.log('上传进度', res.progress)
+              // console.log('已经上传的数据长度', res.totalBytesSent)
+              // console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+            });
+          }
+        });
+      } else {
+        reject({
+          errMsg: "请添加七牛云回调方法：getQnToken",
+          statusCode: 0 });
+
+      }
+    } else {
+      reject({
+        errMsg: "files 必须是数组类型",
+        statusCode: 0 });
+
+    };
+  });
+};
+// 阿里云oss上传
+exports.qiniuUpload = qiniuUpload;var aliUpload = function aliUpload(requestInfo, getAliToken) {
+  return new Promise(function (resolve, reject) {
+    if (Array.isArray(requestInfo.files)) {
+      var len = requestInfo.files.length;
+      var fileList = new Array();
+      if (getAliToken) {
+        getAliToken(function (aliRes) {
+          /*
+                                        *接口返回参数：
+                                        *visitPrefix:访问文件的域名
+                                        *folderPath:上传的文件夹
+                                        *accessKeyId: 您的oss的访问ID
+                                        *accessKeySecret: 您的oss的访问密钥
+                                        * timeout: 签名过期时间（毫秒）
+                                        */
+          var aliyunOssKey = aliUploader({
+            accessKeyId: aliRes.accessKeyId,
+            accessKeySecret: aliRes.accessKeySecret,
+            timeout: aliRes.timeout });
+
+          var prefixLen = aliRes.visitPrefix.length;
+          if (aliRes.visitPrefix.charAt(prefixLen - 1) == '/') {
+            aliRes.visitPrefix = aliRes.visitPrefix.substring(0, prefixLen - 1);
+          }
+          uploadFile(0);
+
+          function uploadFile(i) {
+            var item = requestInfo.files[i];
+            var updateUrl = randomChar(10, aliRes.folderPath);
+            var fileData = _objectSpread({
+              fileIndex: i,
+              files: requestInfo.files },
+            item);
+
+            if (item.name) {
+              fileData.name = item.name;
+              var nameArr = item.name.split(".");
+              updateUrl += "." + nameArr[nameArr.length - 1];
+            }
+            if (item.path) {
+              var _nameArr = item.path.split(".");
+              updateUrl += "." + _nameArr[_nameArr.length - 1];
+            }
+            console.log("----------111", {
+              url: aliRes.visitPrefix, // 开发者服务器的URL。
+              filePath: item.path,
+              name: 'file', // 必须填file。
+              formData: {
+                key: updateUrl,
+                policy: aliyunOssKey.policy,
+                OSSAccessKeyId: aliyunOssKey.accessKeyId,
+                signature: aliyunOssKey.signature } });
+
+            uni.uploadFile({
+              url: aliRes.visitPrefix, // 开发者服务器的URL。
+              filePath: item.path,
+              name: 'file', // 必须填file。
+              formData: {
+                key: updateUrl,
+                policy: aliyunOssKey.policy,
+                OSSAccessKeyId: aliyunOssKey.accessKeyId,
+                signature: aliyunOssKey.signature },
+
+              success: function success(res) {
+                if (res.statusCode === 204) {
+                  fileData.url = aliRes.visitPrefix + "/" + updateUrl;
+                  requestInfo.onEachUpdate && requestInfo.onEachUpdate(_objectSpread({
+                    url: fileData.url },
+                  fileData));
+
+                  fileList.push(fileData.url);
+                  if (len - 1 > i) {
+                    uploadFile(i + 1);
+                  } else {
+                    resolve(fileList);
+                  }
+                } else {
+                  console.log("----失败", res);
+                  reject(res);
+                }
+              },
+              fail: function fail(err) {
+                console.log("----失败", err);
+                reject(err);
+              } });
+
+          }
+        });
+      } else {
+        reject({
+          errMsg: "请添加阿里云回调方法：getAliToken",
+          statusCode: 0 });
+
+      }
+    } else {
+      reject({
+        errMsg: "files 必须是数组类型",
+        statusCode: 0 });
+
+    };
+  });
+};
+// 服务器URL上传
+exports.aliUpload = aliUpload;var urlUpload = function urlUpload(requestInfo, dataFactory) {
+  return new Promise(function (resolve, reject) {
+    // 本地文件上传去掉默认Content-Type
+    if (requestInfo.header['Content-Type']) {
+      delete requestInfo.header['Content-Type'];
+    }
+    // 本地文件上传去掉默认Content-Type
+    if (requestInfo.header['content-type']) {
+      delete requestInfo.header['content-type'];
+    }
+    if (Array.isArray(requestInfo.files)) {var
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      fileUpload = function fileUpload(i) {
+        var item = requestInfo.files[i];
+        var fileData = _objectSpread({
+          fileIndex: i,
+          files: requestInfo.files },
+        item);
+
+        var config = {
+          url: requestInfo.url,
+          filePath: item.path,
+          header: requestInfo.header, //加入请求头
+          name: requestInfo.name || "file",
+          success: function success(response) {
+            //是否用外部的数据处理方法
+            if (requestInfo.isFactory && dataFactory) {
+              //数据处理
+              dataFactory(_objectSpread(_objectSpread({},
+              requestInfo), {}, {
+                response: response })).
+              then(function (data) {
+                fileList.push(data);
+                requestInfo.onEachUpdate && requestInfo.onEachUpdate(_objectSpread({
+                  data: data },
+                fileData));
+
+                if (len <= i) {
+                  resolve(fileList);
+                } else {
+                  fileUpload(i + 1);
+                }
+              }, function (err) {
+                reject(err);
+              });
+            } else {
+              requestInfo.onEachUpdate && requestInfo.onEachUpdate(_objectSpread({
+                data: response },
+              fileData));
+
+              fileList.push(response);
+              if (len <= i) {
+                resolve(fileList);
+              } else {
+                fileUpload(i + 1);
+              }
+            }
+          },
+          fail: function fail(err) {
+            reject(err);
+          } };
+
+        if (requestInfo.data) {
+          config.formData = requestInfo.data;
+        }
+        var uploadTask = uni.uploadFile(config);
+        uploadTask.onProgressUpdate(function (res) {
+          requestInfo.onProgressUpdate && requestInfo.onProgressUpdate(Object.assign({}, fileData, res));
+        });
+      };var len = requestInfo.files.length - 1;var fileList = new Array();fileUpload(0);
+
+    } else {
+      reject({
+        errMsg: "files 必须是数组类型",
+        statusCode: 0 });
+
+    }
+  });
+};exports.urlUpload = urlUpload;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+/* 61 */
+/*!****************************************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/request/upload/qiniuUploader.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// created by gpake
+(function () {
+
+  var config = {
+    qiniuRegion: '',
+    qiniuImageURLPrefix: '',
+    qiniuUploadToken: '',
+    qiniuUploadTokenURL: '',
+    qiniuUploadTokenFunction: null,
+    qiniuShouldUseQiniuFileName: false };
+
+
+  module.exports = {
+    init: init,
+    upload: upload };
+
+
+  // 在整个程序生命周期中，只需要 init 一次即可
+  // 如果需要变更参数，再调用 init 即可
+  function init(options) {
+    config = {
+      qiniuRegion: '',
+      qiniuImageURLPrefix: '',
+      qiniuUploadToken: '',
+      qiniuUploadTokenURL: '',
+      qiniuUploadTokenFunction: null,
+      qiniuShouldUseQiniuFileName: false };
+
+    updateConfigWithOptions(options);
+  }
+
+  function updateConfigWithOptions(options) {
+    if (options.region) {
+      config.qiniuRegion = options.region;
+    } else {
+      console.error('qiniu uploader need your bucket region');
+    }
+    if (options.uptoken) {
+      config.qiniuUploadToken = options.uptoken;
+    } else if (options.uptokenURL) {
+      config.qiniuUploadTokenURL = options.uptokenURL;
+    } else if (options.uptokenFunc) {
+      config.qiniuUploadTokenFunction = options.uptokenFunc;
+    }
+    if (options.domain) {
+      config.qiniuImageURLPrefix = options.domain;
+    }
+    config.qiniuShouldUseQiniuFileName = options.shouldUseQiniuFileName;
+  }
+
+  function upload(filePath, success, fail, options, progress, cancelTask) {
+    if (null == filePath) {
+      console.error('qiniu uploader need filePath to upload');
+      return;
+    }
+    if (options) {
+      updateConfigWithOptions(options);
+    }
+    if (config.qiniuUploadToken) {
+      doUpload(filePath, success, fail, options, progress, cancelTask);
+    } else if (config.qiniuUploadTokenURL) {
+      getQiniuToken(function () {
+        doUpload(filePath, success, fail, options, progress, cancelTask);
+      });
+    } else if (config.qiniuUploadTokenFunction) {
+      config.qiniuUploadToken = config.qiniuUploadTokenFunction();
+      if (null == config.qiniuUploadToken && config.qiniuUploadToken.length > 0) {
+        console.error('qiniu UploadTokenFunction result is null, please check the return value');
+        return;
+      }
+      doUpload(filePath, success, fail, options, progress, cancelTask);
+    } else {
+      console.error('qiniu uploader need one of [uptoken, uptokenURL, uptokenFunc]');
+      return;
+    }
+  }
+
+  function doUpload(filePath, _success, _fail, options, progress, cancelTask) {
+    if (null == config.qiniuUploadToken && config.qiniuUploadToken.length > 0) {
+      console.error('qiniu UploadToken is null, please check the init config or networking');
+      return;
+    }
+    var url = uploadURLFromRegionCode(config.qiniuRegion);
+    var fileName = filePath.split('//')[1];
+    if (options && options.key) {
+      fileName = options.key;
+    }
+    var formData = {
+      'token': config.qiniuUploadToken };
+
+    if (!config.qiniuShouldUseQiniuFileName) {
+      formData['key'] = fileName;
+    }
+    var uploadTask = wx.uploadFile({
+      url: url,
+      filePath: filePath,
+      name: 'file',
+      formData: formData,
+      success: function success(res) {
+        var dataString = res.data;
+        if (res.data.hasOwnProperty('type') && res.data.type === 'Buffer') {
+          dataString = String.fromCharCode.apply(null, res.data.data);
+        }
+        try {
+          var dataObject = JSON.parse(dataString);
+          //do something
+          var imageUrl = config.qiniuImageURLPrefix + '/' + dataObject.key;
+          dataObject.imageURL = imageUrl;
+          if (_success) {
+            _success(dataObject);
+          }
+        } catch (e) {
+          console.log('parse JSON failed, origin String is: ' + dataString);
+          if (_fail) {
+            _fail(e);
+          }
+        }
+      },
+      fail: function fail(error) {
+        console.error(error);
+        if (_fail) {
+          _fail(error);
+        }
+      } });
+
+
+    uploadTask.onProgressUpdate(function (res) {
+      progress && progress(res);
+    });
+
+    cancelTask && cancelTask(function () {
+      uploadTask.abort();
+    });
+  }
+
+  function getQiniuToken(callback) {
+    wx.request({
+      url: config.qiniuUploadTokenURL,
+      success: function success(res) {
+        var token = res.data.uptoken;
+        if (token && token.length > 0) {
+          config.qiniuUploadToken = token;
+          if (callback) {
+            callback();
+          }
+        } else {
+          console.error('qiniuUploader cannot get your token, please check the uptokenURL or server');
+        }
+      },
+      fail: function fail(error) {
+        console.error('qiniu UploadToken is null, please check the init config or networking: ' + error);
+      } });
+
+  }
+
+  function uploadURLFromRegionCode(code) {
+    var uploadURL = null;
+    switch (code) {
+      case 'ECN':uploadURL = 'https://up.qbox.me';break;
+      case 'NCN':uploadURL = 'https://up-z1.qbox.me';break;
+      case 'SCN':uploadURL = 'https://up-z2.qbox.me';break;
+      case 'NA':uploadURL = 'https://up-na0.qbox.me';break;
+      case 'ASG':uploadURL = 'https://up-as0.qbox.me';break;
+      default:console.error('please make the region is with one of [ECN, SCN, NCN, NA, ASG]');}
+
+    return uploadURL;
+  }
+
+})();
+
+/***/ }),
+/* 62 */
+/*!**************************************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/request/upload/aliUploader.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Base64 = __webpack_require__(/*! ./Base64.js */ 63);
+__webpack_require__(/*! ./hmac.js */ 64);
+__webpack_require__(/*! ./sha1.js */ 66);
+var Crypto = __webpack_require__(/*! ./crypto.js */ 65);
+// 获取policy
+var getPolicyBase64 = function getPolicyBase64(timeout) {
+  var dateTime = new Date().getTime();
+  var date = new Date(dateTime + (timeout || 1800000));
+  var srcT = date.toISOString();
+  var policyText = {
+    "expiration": srcT, //设置该Policy的失效时间
+    "conditions": [
+    ["content-length-range", 0, 100 * 1024 * 1024] // 设置上传文件的大小限制,100mb
+    ] };
+
+  var policyBase64 = Base64.encode(JSON.stringify(policyText));
+  return policyBase64;
+};
+// 获取签名
+var getSignature = function getSignature(policyBase64, AccessKeySecret) {
+  var bytes = Crypto.HMAC(Crypto.SHA1, policyBase64, AccessKeySecret, {
+    asBytes: true });
+
+  var signature = Crypto.util.bytesToBase64(bytes);
+  return signature;
+};
+// 获取阿里云token信息
+var getAliyunOssKey = function getAliyunOssKey(options) {
+  var policyBase64 = getPolicyBase64(options.timeout);
+  var signature = getSignature(policyBase64, options.accessKeySecret);
+  return {
+    policy: policyBase64,
+    accessKeyId: options.accessKeyId,
+    accessKeySecret: options.accessKeySecret,
+    signature: signature,
+    success_action_status: '200' };
+
+};
+
+module.exports = getAliyunOssKey;
+
+/***/ }),
+/* 63 */
+/*!*********************************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/request/upload/Base64.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var Base64 = {
+
+  // private property
+  _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+
+  // public method for encoding
+  encode: function encode(input) {
+    var output = "";
+    var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+    var i = 0;
+
+    input = Base64._utf8_encode(input);
+
+    while (i < input.length) {
+
+      chr1 = input.charCodeAt(i++);
+      chr2 = input.charCodeAt(i++);
+      chr3 = input.charCodeAt(i++);
+
+      enc1 = chr1 >> 2;
+      enc2 = (chr1 & 3) << 4 | chr2 >> 4;
+      enc3 = (chr2 & 15) << 2 | chr3 >> 6;
+      enc4 = chr3 & 63;
+
+      if (isNaN(chr2)) {
+        enc3 = enc4 = 64;
+      } else if (isNaN(chr3)) {
+        enc4 = 64;
+      }
+
+      output = output +
+      this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
+      this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+
+    }
+
+    return output;
+  },
+
+  // public method for decoding
+  decode: function decode(input) {
+    var output = "";
+    var chr1, chr2, chr3;
+    var enc1, enc2, enc3, enc4;
+    var i = 0;
+
+    input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+    while (i < input.length) {
+
+      enc1 = this._keyStr.indexOf(input.charAt(i++));
+      enc2 = this._keyStr.indexOf(input.charAt(i++));
+      enc3 = this._keyStr.indexOf(input.charAt(i++));
+      enc4 = this._keyStr.indexOf(input.charAt(i++));
+
+      chr1 = enc1 << 2 | enc2 >> 4;
+      chr2 = (enc2 & 15) << 4 | enc3 >> 2;
+      chr3 = (enc3 & 3) << 6 | enc4;
+
+      output = output + String.fromCharCode(chr1);
+
+      if (enc3 != 64) {
+        output = output + String.fromCharCode(chr2);
+      }
+      if (enc4 != 64) {
+        output = output + String.fromCharCode(chr3);
+      }
+
+    }
+
+    output = Base64._utf8_decode(output);
+
+    return output;
+
+  },
+
+  // private method for UTF-8 encoding
+  _utf8_encode: function _utf8_encode(string) {
+    string = string.replace(/\r\n/g, "\n");
+    var utftext = "";
+
+    for (var n = 0; n < string.length; n++) {
+
+      var c = string.charCodeAt(n);
+
+      if (c < 128) {
+        utftext += String.fromCharCode(c);
+      } else if (c > 127 && c < 2048) {
+        utftext += String.fromCharCode(c >> 6 | 192);
+        utftext += String.fromCharCode(c & 63 | 128);
+      } else {
+        utftext += String.fromCharCode(c >> 12 | 224);
+        utftext += String.fromCharCode(c >> 6 & 63 | 128);
+        utftext += String.fromCharCode(c & 63 | 128);
+      }
+
+    }
+
+    return utftext;
+  },
+
+  // private method for UTF-8 decoding
+  _utf8_decode: function _utf8_decode(utftext) {
+    var string = "";
+    var i = 0;
+    var c = c1 = c2 = 0;
+
+    while (i < utftext.length) {
+
+      c = utftext.charCodeAt(i);
+
+      if (c < 128) {
+        string += String.fromCharCode(c);
+        i++;
+      } else if (c > 191 && c < 224) {
+        c2 = utftext.charCodeAt(i + 1);
+        string += String.fromCharCode((c & 31) << 6 | c2 & 63);
+        i += 2;
+      } else {
+        c2 = utftext.charCodeAt(i + 1);
+        c3 = utftext.charCodeAt(i + 2);
+        string += String.fromCharCode((c & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
+        i += 3;
+      }
+
+    }
+
+    return string;
+  } };
+
+
+module.exports = Base64;
+
+/***/ }),
+/* 64 */
+/*!*******************************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/request/upload/hmac.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+ * Crypto-JS v1.1.0
+ * http://code.google.com/p/crypto-js/
+ * Copyright (c) 2009, Jeff Mott. All rights reserved.
+ * http://code.google.com/p/crypto-js/wiki/License
+ */
+
+var Crypto = __webpack_require__(/*! ./crypto.js */ 65);
+
+(function () {
+
+  // Shortcut
+  var util = Crypto.util;
+
+  Crypto.HMAC = function (hasher, message, key, options) {
+
+    // Allow arbitrary length keys
+    key = key.length > hasher._blocksize * 4 ?
+    hasher(key, { asBytes: true }) :
+    util.stringToBytes(key);
+
+    // XOR keys with pad constants
+    var okey = key,
+    ikey = key.slice(0);
+    for (var i = 0; i < hasher._blocksize * 4; i++) {
+      okey[i] ^= 0x5C;
+      ikey[i] ^= 0x36;
+    }
+
+    var hmacbytes = hasher(util.bytesToString(okey) +
+    hasher(util.bytesToString(ikey) + message, { asString: true }),
+    { asBytes: true });
+    return options && options.asBytes ? hmacbytes :
+    options && options.asString ? util.bytesToString(hmacbytes) :
+    util.bytesToHex(hmacbytes);
+
+  };
+
+})();
+
+module.exports = Crypto;
+
+/***/ }),
+/* 65 */
+/*!*********************************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/request/upload/crypto.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+ * Crypto-JS v1.1.0
+ * http://code.google.com/p/crypto-js/
+ * Copyright (c) 2009, Jeff Mott. All rights reserved.
+ * http://code.google.com/p/crypto-js/wiki/License
+ */
+
+var Crypto = {};
+
+(function () {
+
+  var base64map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+
+  // Crypto utilities
+  var util = Crypto.util = {
+
+    // Bit-wise rotate left
+    rotl: function rotl(n, b) {
+      return n << b | n >>> 32 - b;
+    },
+
+    // Bit-wise rotate right
+    rotr: function rotr(n, b) {
+      return n << 32 - b | n >>> b;
+    },
+
+    // Swap big-endian to little-endian and vice versa
+    endian: function endian(n) {
+
+      // If number given, swap endian
+      if (n.constructor == Number) {
+        return util.rotl(n, 8) & 0x00FF00FF |
+        util.rotl(n, 24) & 0xFF00FF00;
+      }
+
+      // Else, assume array and swap all items
+      for (var i = 0; i < n.length; i++) {
+        n[i] = util.endian(n[i]);}
+      return n;
+
+    },
+
+    // Generate an array of any length of random bytes
+    randomBytes: function randomBytes(n) {
+      for (var bytes = []; n > 0; n--) {
+        bytes.push(Math.floor(Math.random() * 256));}
+      return bytes;
+    },
+
+    // Convert a string to a byte array
+    stringToBytes: function stringToBytes(str) {
+      var bytes = [];
+      for (var i = 0; i < str.length; i++) {
+        bytes.push(str.charCodeAt(i));}
+      return bytes;
+    },
+
+    // Convert a byte array to a string
+    bytesToString: function bytesToString(bytes) {
+      var str = [];
+      for (var i = 0; i < bytes.length; i++) {
+        str.push(String.fromCharCode(bytes[i]));}
+      return str.join("");
+    },
+
+    // Convert a string to big-endian 32-bit words
+    stringToWords: function stringToWords(str) {
+      var words = [];
+      for (var c = 0, b = 0; c < str.length; c++, b += 8) {
+        words[b >>> 5] |= str.charCodeAt(c) << 24 - b % 32;}
+      return words;
+    },
+
+    // Convert a byte array to big-endian 32-bits words
+    bytesToWords: function bytesToWords(bytes) {
+      var words = [];
+      for (var i = 0, b = 0; i < bytes.length; i++, b += 8) {
+        words[b >>> 5] |= bytes[i] << 24 - b % 32;}
+      return words;
+    },
+
+    // Convert big-endian 32-bit words to a byte array
+    wordsToBytes: function wordsToBytes(words) {
+      var bytes = [];
+      for (var b = 0; b < words.length * 32; b += 8) {
+        bytes.push(words[b >>> 5] >>> 24 - b % 32 & 0xFF);}
+      return bytes;
+    },
+
+    // Convert a byte array to a hex string
+    bytesToHex: function bytesToHex(bytes) {
+      var hex = [];
+      for (var i = 0; i < bytes.length; i++) {
+        hex.push((bytes[i] >>> 4).toString(16));
+        hex.push((bytes[i] & 0xF).toString(16));
+      }
+      return hex.join("");
+    },
+
+    // Convert a hex string to a byte array
+    hexToBytes: function hexToBytes(hex) {
+      var bytes = [];
+      for (var c = 0; c < hex.length; c += 2) {
+        bytes.push(parseInt(hex.substr(c, 2), 16));}
+      return bytes;
+    },
+
+    // Convert a byte array to a base-64 string
+    bytesToBase64: function bytesToBase64(bytes) {
+
+      // Use browser-native function if it exists
+      // if (typeof btoa == "function") return btoa(util.bytesToString(bytes));
+
+      var base64 = [],
+      overflow;
+
+      for (var i = 0; i < bytes.length; i++) {
+        switch (i % 3) {
+          case 0:
+            base64.push(base64map.charAt(bytes[i] >>> 2));
+            overflow = (bytes[i] & 0x3) << 4;
+            break;
+          case 1:
+            base64.push(base64map.charAt(overflow | bytes[i] >>> 4));
+            overflow = (bytes[i] & 0xF) << 2;
+            break;
+          case 2:
+            base64.push(base64map.charAt(overflow | bytes[i] >>> 6));
+            base64.push(base64map.charAt(bytes[i] & 0x3F));
+            overflow = -1;}
+
+      }
+
+      // Encode overflow bits, if there are any
+      if (overflow != undefined && overflow != -1)
+      base64.push(base64map.charAt(overflow));
+
+      // Add padding
+      while (base64.length % 4 != 0) {base64.push("=");}
+
+      return base64.join("");
+
+    },
+
+    // Convert a base-64 string to a byte array
+    base64ToBytes: function base64ToBytes(base64) {
+
+      // Use browser-native function if it exists
+      if (typeof atob == "function") return util.stringToBytes(atob(base64));
+
+      // Remove non-base-64 characters
+      base64 = base64.replace(/[^A-Z0-9+\/]/ig, "");
+
+      var bytes = [];
+
+      for (var i = 0; i < base64.length; i++) {
+        switch (i % 4) {
+          case 1:
+            bytes.push(base64map.indexOf(base64.charAt(i - 1)) << 2 |
+            base64map.indexOf(base64.charAt(i)) >>> 4);
+            break;
+          case 2:
+            bytes.push((base64map.indexOf(base64.charAt(i - 1)) & 0xF) << 4 |
+            base64map.indexOf(base64.charAt(i)) >>> 2);
+            break;
+          case 3:
+            bytes.push((base64map.indexOf(base64.charAt(i - 1)) & 0x3) << 6 |
+            base64map.indexOf(base64.charAt(i)));
+            break;}
+
+      }
+
+      return bytes;
+
+    } };
+
+
+
+  // Crypto mode namespace
+  Crypto.mode = {};
+
+})();
+
+module.exports = Crypto;
+
+/***/ }),
+/* 66 */
+/*!*******************************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/utils/request/upload/sha1.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+ * Crypto-JS v1.1.0
+ * http://code.google.com/p/crypto-js/
+ * Copyright (c) 2009, Jeff Mott. All rights reserved.
+ * http://code.google.com/p/crypto-js/wiki/License
+ */
+
+var Crypto = __webpack_require__(/*! ./crypto.js */ 65);
+
+(function () {
+
+  // Shortcut
+  var util = Crypto.util;
+
+  // Public API
+  var SHA1 = Crypto.SHA1 = function (message, options) {
+    var digestbytes = util.wordsToBytes(SHA1._sha1(message));
+    return options && options.asBytes ? digestbytes :
+    options && options.asString ? util.bytesToString(digestbytes) :
+    util.bytesToHex(digestbytes);
+  };
+
+  // The core
+  SHA1._sha1 = function (message) {
+
+    var m = util.stringToWords(message),
+    l = message.length * 8,
+    w = [],
+    H0 = 1732584193,
+    H1 = -271733879,
+    H2 = -1732584194,
+    H3 = 271733878,
+    H4 = -1009589776;
+
+    // Padding
+    m[l >> 5] |= 0x80 << 24 - l % 32;
+    m[(l + 64 >>> 9 << 4) + 15] = l;
+
+    for (var i = 0; i < m.length; i += 16) {
+
+      var a = H0,
+      b = H1,
+      c = H2,
+      d = H3,
+      e = H4;
+
+      for (var j = 0; j < 80; j++) {
+
+        if (j < 16) w[j] = m[i + j];else
+        {
+          var n = w[j - 3] ^ w[j - 8] ^ w[j - 14] ^ w[j - 16];
+          w[j] = n << 1 | n >>> 31;
+        }
+
+        var t = (H0 << 5 | H0 >>> 27) + H4 + (w[j] >>> 0) + (
+        j < 20 ? (H1 & H2 | ~H1 & H3) + 1518500249 :
+        j < 40 ? (H1 ^ H2 ^ H3) + 1859775393 :
+        j < 60 ? (H1 & H2 | H1 & H3 | H2 & H3) - 1894007588 :
+        (H1 ^ H2 ^ H3) - 899497514);
+
+        H4 = H3;
+        H3 = H2;
+        H2 = H1 << 30 | H1 >>> 2;
+        H1 = H0;
+        H0 = t;
+
+      }
+
+      H0 += a;
+      H1 += b;
+      H2 += c;
+      H3 += d;
+      H4 += e;
+
+    }
+
+    return [H0, H1, H2, H3, H4];
+
+  };
+
+  // Package private blocksize
+  SHA1._blocksize = 16;
+
+})();
+
+module.exports = Crypto;
+
+/***/ }),
+/* 67 */
+/*!************************************************************!*\
+  !*** E:/PythonPHPQianDuan/WorkingProject/jhmall/config.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = {
+  //名称
+  name: 'star数码商城',
+  // 后端api地址
+  apiUrl: 'http://cba.itlike.com/public/index.php?s=/api/' };
 
 /***/ })
 ]]);

@@ -1,4 +1,6 @@
 {
   "enablePullDownRefresh": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "page": "/pages/index/components/page/index"
+  }
 }

@@ -1,0 +1,18 @@
+{
+  "component": true,
+  "usingComponents": {
+    "search": "/pages/index/components/page/search/index",
+    "banner": "/pages/index/components/page/banner/index",
+    "notice": "/pages/index/components/page/notice/index",
+    "window": "/pages/index/components/page/window/index",
+    "nav-bar": "/pages/index/components/page/navBar/index",
+    "videos": "/pages/index/components/page/videos/index",
+    "images": "/pages/index/components/page/image/index",
+    "shop": "/pages/index/components/page/shop/index",
+    "blank": "/pages/index/components/page/blank/index",
+    "guide": "/pages/index/components/page/guide/index",
+    "article": "/pages/index/components/page/article/index",
+    "rich-text": "/pages/index/components/page/richText/index",
+    "service": "/pages/index/components/page/service/index"
+  }
+}

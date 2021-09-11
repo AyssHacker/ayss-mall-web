@@ -1,1 +1,1 @@
-<view>首页</view>
+<view><page vue-id="8dd740cc-1" items="{{items}}" bind:__l="__l"></page></view>
