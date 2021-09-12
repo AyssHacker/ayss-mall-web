@@ -1,1 +1,1 @@
-<view><text>公告组件</text></view>
+<view class="diy-notice data-v-a0dcbb10" style="{{'padding-top:'+(itemStyle.paddingTop+'px')+';'+('padding-bottom:'+(itemStyle.paddingTop+'px')+';')}}"><u-notice-bar vue-id="42a32d8e-1" list="{{[params.text]}}" volume-icon="{{params.showIcon}}" autoplay="{{params.scrollable}}" bg-color="{{itemStyle.background}}" color="{{itemStyle.textColor}}" class="data-v-a0dcbb10" bind:__l="__l"></u-notice-bar></view>

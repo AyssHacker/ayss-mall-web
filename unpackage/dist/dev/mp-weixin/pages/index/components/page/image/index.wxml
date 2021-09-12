@@ -1,1 +1,1 @@
-<view><text>图片组件</text></view>
+<view class="diy-imageSingle data-v-2a2b2391" style="{{'padding:'+(itemStyle.paddingTop+'px')+';'+('background:'+(itemStyle.background)+';')}}"><block wx:for="{{dataList}}" wx:for-item="dataItem" wx:for-index="index" wx:key="index"><view class="item-image data-v-2a2b2391" style="{{'padding:'+(itemStyle.paddingTop+'px '+itemStyle.paddingLeft+'px')+';'}}"><view class="nav-to data-v-2a2b2391"><image class="image data-v-2a2b2391" src="{{dataItem.imgUrl}}" mode="widthFix"></image></view></view></block></view>

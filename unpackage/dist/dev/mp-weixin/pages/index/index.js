@@ -141,31 +141,29 @@ var Api = _interopRequireWildcard(__webpack_require__(/*! @/api/home */ 54));fun
 //
 //
 //
-var Page = function Page() {__webpack_require__.e(/*! require.ensure | pages/index/components/page/index */ "pages/index/components/page/index").then((function () {return resolve(__webpack_require__(/*! ./components/page */ 86));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { Page: Page }, data: function data() {
+var Page = function Page() {__webpack_require__.e(/*! require.ensure | pages/index/components/page/index */ "pages/index/components/page/index").then((function () {return resolve(__webpack_require__(/*! ./components/page */ 86));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { components: { Page: Page },
+  data: function data() {
     return {
-      //页面参数
+      // 页面参数
       options: {},
-      //页面属性
+      // 页面属性
       page: {},
-      //页面元素
+      // 页面元素
       items: [] };
 
   },
   onLoad: function onLoad(options) {
-    //当前页面的参数
+    // 当前页面的参数
     this.options = options;
-    //请求页面数据
+    // 请求页面数据
     this.getPageData();
   },
   methods: {
     getPageData: function getPageData() {
       var app = this;
-      //如果pageid存在就用它  如果没有就是0
       var pageId = app.options.pageId || 0;
       Api.detail(pageId).then(function (result) {
-        //{status: 200, message: "success", data: {…}   rsult的结果
-        //console.log(result)
-        //解析数据
+        // 解析数据
         var
 
         pageData =
@@ -173,9 +171,7 @@ var Page = function Page() {__webpack_require__.e(/*! require.ensure | pages/ind
         result.data.pageData;
         app.page = pageData.page;
         app.items = pageData.items;
-        console.log(app.page, app.items);
-
-
+        // console.log(app.page, app.items)
       });
     } } };exports.default = _default;
 

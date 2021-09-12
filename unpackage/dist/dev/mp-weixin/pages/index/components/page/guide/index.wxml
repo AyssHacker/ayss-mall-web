@@ -1,1 +1,1 @@
-<view><text>辅助线组件</text></view>
+<view class="diy-guide data-v-3b34401c" style="{{'padding:'+(itemStyle.paddingTop+'px 0')+';'+('background:'+(itemStyle.background)+';')}}"><view class="line data-v-3b34401c" style="{{'border-top:'+(itemStyle.lineHeight+'px '+itemStyle.lineStyle+' '+itemStyle.lineColor)+';'}}"></view></view>

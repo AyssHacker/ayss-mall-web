@@ -1,1 +1,1 @@
-<view><text>视频组件</text></view>
+<view class="diy-video data-v-49e8e6f8" style="{{'padding:'+(itemStyle.paddingTop+'px 0')+';'}}"><video class="video data-v-49e8e6f8" style="{{'height:'+(itemStyle.height+'px')+';'}}" src="{{params.videoUrl}}" poster="{{params.poster}}" autoplay="{{params.autoplay===1}}" controls="{{true}}"></video></view>
