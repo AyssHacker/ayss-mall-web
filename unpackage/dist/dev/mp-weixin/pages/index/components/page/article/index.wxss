@@ -46,8 +46,6 @@
 }
 /* 小图模式 */
 .show-type__10.data-v-277a12a8 {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
 }
 .show-type__10 .article-item__left.data-v-277a12a8 {

@@ -45,15 +45,9 @@
   left: 0;
   right: 0;
   bottom: 20rpx;
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 .diy-banner .indicator-dots .dots-item.data-v-2f1831cc {
   width: 16rpx;

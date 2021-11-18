@@ -120,3 +120,15 @@ export const showToast = (msg, callback) => {
 		}
 	})
 }
+
+/**
+ * 加载更多的列表数据
+ */
+export const getMoreDataList = (resList,oldList,pageNo) => {
+	/*
+		如果是第一页,返回一个空数组
+	*/
+   if(pageNo === 1) oldList.data = []
+   //合并新数据
+   return oldList.data.concat(resList.data)
+}

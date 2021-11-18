@@ -1,7 +1,7 @@
 <template>
 	<!-- 搜索框 -->
 	<view class="diy-search">
-		<view class="inner" :class="itemStyle.searchStyle">
+		<view class="inner" :class="itemStyle.searchStyle" @click="onTargetSearch">
 			<view class="search-input" :style="{textAlign: itemStyle.textAlign}">
 				<text class="search-icon iconfont icon-search"></text>
 				<text>{{params.placeholder}}</text>
@@ -15,6 +15,14 @@
 		props: {
 		  itemStyle: Object,
 	      params: Object		  
+		},
+		methods: {
+			/**
+			 * 跳转到搜索页面
+			 */
+			onTargetSearch(){
+				this.$navTo('pages/search/index')
+			}
 		}
 	}
 </script>

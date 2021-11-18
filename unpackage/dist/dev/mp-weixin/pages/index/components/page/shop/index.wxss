@@ -91,13 +91,9 @@
   margin-bottom: 0;
 }
 .diy-goods .goods-list.column__1 .goods-item .goods-item_left.data-v-bb169354 {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
   width: 40%;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
+  align-items: center;
 }
 .diy-goods .goods-list.column__1 .goods-item .goods-item_left .image.data-v-bb169354 {
   display: block;

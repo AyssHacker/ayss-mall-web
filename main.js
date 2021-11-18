@@ -6,7 +6,8 @@ import {
 	getPlatform,
 	showToast,
 	showSuccess,
-	showError
+	showError,
+	getMoreDataList
 } from './utils/app.js'
 //引入 uview-ui组件
 import uView from 'uview-ui'

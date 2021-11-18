@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "商品列表",
+  "usingComponents": {
+    "search": "/components/search/search",
+    "mescroll-body": "/components/mescroll-uni/mescroll-body"
+  }
+}
